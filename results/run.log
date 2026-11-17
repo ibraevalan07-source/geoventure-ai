@@ -1,0 +1,367 @@
+{
+ "design": {
+  "test_years": [
+   1990,
+   2005
+  ],
+  "decision_lag_days": 365,
+  "train_cutoff": "Jan 1 of Y-1",
+  "km_horizon_years": 20,
+  "calibration_window_years": 3,
+  "reliability_years": 5,
+  "base_window_years": 10,
+  "main_scenario": {
+   "v": 3,
+   "C": 70,
+   "S": 25,
+   "attr": "first"
+  },
+  "survey_assumption": {
+   "se": 0.75,
+   "sp": 0.75,
+   "cost": 10
+  },
+  "primary_baseline": "actual history (drill all)"
+ },
+ "n_test": 234,
+ "n_commercial": 50,
+ "commercial_rate": 0.2137,
+ "n_new_discoveries": 97,
+ "calibration": {
+  "p_base": {
+   "label": "База (геолог/статистика)",
+   "AUC": 0.488,
+   "Brier": 0.1731,
+   "ECE": 0.0737,
+   "mean_p": 0.154
+  },
+  "p_model_raw": {
+   "label": "Модель без калибровки (как в v3.0)",
+   "AUC": 0.504,
+   "Brier": 0.176,
+   "ECE": 0.0872,
+   "mean_p": 0.13
+  },
+  "p_model_cal": {
+   "label": "Модель, калибровка + Каплан–Майер",
+   "AUC": 0.507,
+   "Brier": 0.1729,
+   "ECE": 0.0538,
+   "mean_p": 0.161
+  },
+  "p_geovent": {
+   "label": "GeoVenture 3.1 (с отказом)",
+   "AUC": 0.488,
+   "Brier": 0.1731,
+   "ECE": 0.0737,
+   "mean_p": 0.154
+  }
+ },
+ "discovery_model": {
+  "AUC_new_discovery": 0.487,
+  "BSS_new_discovery_vs_base": -0.034
+ },
+ "abstention": {
+  "years_trusted": 0,
+  "years_total": 16,
+  "share_wells_abstained": 1.0
+ },
+ "main_money": {
+  "geologist_D_km": 5,
+  "strategies": {
+   "Факт (бурить всё)": {
+    "value_musd": 5269,
+    "drilled": 1.0,
+    "diff_vs_primary": 0,
+    "diff_CI90": [
+     0,
+     0
+    ],
+    "P_worse_than_primary": 0.0
+   },
+   "Правило по базе": {
+    "value_musd": -1062,
+    "drilled": 0.406,
+    "diff_vs_primary": -6331,
+    "diff_CI90": [
+     -19679,
+     4016
+    ],
+    "P_worse_than_primary": 0.79
+   },
+   "Правило геолога": {
+    "value_musd": -1363,
+    "drilled": 0.286,
+    "diff_vs_primary": -6632,
+    "diff_CI90": [
+     -20542,
+     3463
+    ],
+    "P_worse_than_primary": 0.794
+   },
+   "Модель без отказа": {
+    "value_musd": 6632,
+    "drilled": 0.543,
+    "diff_vs_primary": 1363,
+    "diff_CI90": [
+     -4131,
+     5927
+    ],
+    "P_worse_than_primary": 0.311
+   },
+   "GeoVenture 3.1": {
+    "value_musd": -1062,
+    "drilled": 0.406,
+    "diff_vs_primary": -6331,
+    "diff_CI90": [
+     -20218,
+     3950
+    ],
+    "P_worse_than_primary": 0.784
+   },
+   "Идеальная информация": {
+    "value_musd": 19929
+   }
+  },
+  "note": "diff_CI90 / P_worse: estimation uncertainty of the backtest (year-block bootstrap), not investment risk"
+ },
+ "grid": {
+  "n": 54,
+  "Правило по базе": {
+   "beats_primary": 16,
+   "beats_base_rule": 0,
+   "beats_geologist_rule": 36
+  },
+  "Правило геолога": {
+   "beats_primary": 24,
+   "beats_base_rule": 16,
+   "beats_geologist_rule": 0
+  },
+  "Модель без отказа": {
+   "beats_primary": 36,
+   "beats_base_rule": 29,
+   "beats_geologist_rule": 40
+  },
+  "GeoVenture 3.1": {
+   "beats_primary": 16,
+   "beats_base_rule": 0,
+   "beats_geologist_rule": 36
+  }
+ },
+ "money_curve": {
+  "thresholds": [
+   0.0,
+   0.01,
+   0.02,
+   0.03,
+   0.04,
+   0.05,
+   0.06,
+   0.07,
+   0.08,
+   0.09,
+   0.1,
+   0.11,
+   0.12,
+   0.13,
+   0.14,
+   0.15,
+   0.16,
+   0.17,
+   0.18,
+   0.19,
+   0.2,
+   0.21,
+   0.22,
+   0.23,
+   0.24,
+   0.25,
+   0.26,
+   0.27,
+   0.28,
+   0.29,
+   0.3,
+   0.31,
+   0.32,
+   0.33,
+   0.34,
+   0.35,
+   0.36,
+   0.37,
+   0.38,
+   0.39,
+   0.4
+  ],
+  "pre_registered_threshold": 0.148,
+  "best_threshold_model_in_hindsight": 0.16,
+  "best_threshold_base_in_hindsight": 0.0
+ },
+ "equal_budget_vs_random_CI90": {
+  "Правило геолога (ближе к открытию)": [
+   [
+    -12152,
+    1595
+   ],
+   0.845
+  ],
+  "Модель без отказа": [
+   [
+    -5841,
+    10823
+   ],
+   0.377
+  ]
+ },
+ "equal_budget_50pct": {
+  "Случайный выбор / база (ожидание)": 2606,
+  "Правило геолога (ближе к открытию)": -1722,
+  "Модель без отказа": 4519,
+  "GeoVenture 3.1": 2606
+ },
+ "investment_risk_ex_ante": {
+  "note": "Monte Carlo from the strategy own probabilities and sizes of commercial discoveries known at the decision date (main: discovered in the last 10 years - revision made AFTER the all-history version failed the honesty check); realized_percentile checks if the risk model was honest",
+  "Факт (бурить всё) — размеры всех открытий (v3.1a, провал проверки)": {
+   "ex_ante_P_loss": 0.0,
+   "ex_ante_p05": 29286,
+   "ex_ante_median": 72743,
+   "ex_ante_p95": 134491,
+   "realized": 5269,
+   "realized_percentile": 0.001
+  },
+  "Факт (бурить всё)": {
+   "ex_ante_P_loss": 0.03,
+   "ex_ante_p05": 1655,
+   "ex_ante_median": 15684,
+   "ex_ante_p95": 34251,
+   "realized": 5269,
+   "realized_percentile": 0.117
+  },
+  "Правило по базе — размеры всех открытий (v3.1a, провал проверки)": {
+   "ex_ante_P_loss": 0.009,
+   "ex_ante_p05": 5688,
+   "ex_ante_median": 28478,
+   "ex_ante_p95": 78383,
+   "realized": -1062,
+   "realized_percentile": 0.005
+  },
+  "Правило по базе": {
+   "ex_ante_P_loss": 0.353,
+   "ex_ante_p05": -4347,
+   "ex_ante_median": 1622,
+   "ex_ante_p95": 9642,
+   "realized": -1062,
+   "realized_percentile": 0.259
+  },
+  "GeoVenture 3.1 — размеры всех открытий (v3.1a, провал проверки)": {
+   "ex_ante_P_loss": 0.008,
+   "ex_ante_p05": 5232,
+   "ex_ante_median": 28686,
+   "ex_ante_p95": 76887,
+   "realized": -1062,
+   "realized_percentile": 0.005
+  },
+  "GeoVenture 3.1": {
+   "ex_ante_P_loss": 0.342,
+   "ex_ante_p05": -4262,
+   "ex_ante_median": 1718,
+   "ex_ante_p95": 9590,
+   "realized": -1062,
+   "realized_percentile": 0.25
+  }
+ },
+ "next_best_action": {
+  "survey_assumption": {
+   "se": 0.75,
+   "sp": 0.75,
+   "cost": 10
+  },
+  "actions": {
+   "drill": 0,
+   "buy_info": 234,
+   "skip": 0
+  },
+  "mean_EVPI_per_well_musd": 54.8,
+  "median_breakeven_accuracy": 0.63,
+  "share_wells_info_never_pays": 0.0,
+  "simulated_value_musd": {
+   "median": 8916,
+   "p05": 2144,
+   "p95": 12124
+  },
+  "simulated_vs_primary_musd": 3647,
+  "note": "SIMULATION: survey signal generated from true outcomes with assumed accuracy; not evidence of real survey value",
+  "sensitivity": [
+   {
+    "accuracy": 0.65,
+    "cost_musd": 10,
+    "buy_info": 164,
+    "drill": 23,
+    "skip": 47,
+    "simulated_median_musd": 3508,
+    "vs_primary": -1761
+   },
+   {
+    "accuracy": 0.75,
+    "cost_musd": 10,
+    "buy_info": 234,
+    "drill": 0,
+    "skip": 0,
+    "simulated_median_musd": 8489,
+    "vs_primary": 3220
+   },
+   {
+    "accuracy": 0.85,
+    "cost_musd": 10,
+    "buy_info": 234,
+    "drill": 0,
+    "skip": 0,
+    "simulated_median_musd": 12088,
+    "vs_primary": 6819
+   },
+   {
+    "accuracy": 0.65,
+    "cost_musd": 30,
+    "buy_info": 0,
+    "drill": 95,
+    "skip": 139,
+    "simulated_median_musd": -1062,
+    "vs_primary": -6331
+   },
+   {
+    "accuracy": 0.75,
+    "cost_musd": 30,
+    "buy_info": 0,
+    "drill": 95,
+    "skip": 139,
+    "simulated_median_musd": -1062,
+    "vs_primary": -6331
+   },
+   {
+    "accuracy": 0.85,
+    "cost_musd": 30,
+    "buy_info": 204,
+    "drill": 0,
+    "skip": 30,
+    "simulated_median_musd": 4986,
+    "vs_primary": -283
+   }
+  ]
+ }
+}
+ year  n  q_km  q_naive  base_disc  rolling_BSS  rolling_BSS_lo80  n_rel  trusted
+ 1990 17 0.366    0.409      0.319       -0.023            -0.049    118    False
+ 1991 30 0.334    0.426      0.325       -0.019            -0.047    102    False
+ 1992 24 0.386    0.471      0.357        0.008            -0.010     93    False
+ 1993 18 0.411    0.433      0.350        0.013            -0.002     96    False
+ 1994 12 0.456    0.411      0.348        0.006            -0.005    102    False
+ 1995 16 0.429    0.386      0.336        0.009            -0.005    101    False
+ 1996 12 0.404    0.359      0.360        0.004            -0.009    100    False
+ 1997 22 0.402    0.343      0.369        0.000            -0.011     98    False
+ 1998 12 0.464    0.400      0.362       -0.008            -0.026     76    False
+ 1999 10 0.478    0.408      0.380       -0.015            -0.034     76    False
+ 2000 16 0.451    0.408      0.397       -0.005            -0.030     72    False
+ 2001 18 0.441    0.411      0.401       -0.013            -0.037     72    False
+ 2002  4 0.460    0.420      0.399       -0.069            -0.109     70    False
+ 2003  7 0.490    0.445      0.415       -0.054            -0.087     73    False
+ 2004  7 0.529    0.468      0.406       -0.085            -0.149     60    False
+ 2005  9 0.536    0.487      0.455       -0.122            -0.190     55    False
